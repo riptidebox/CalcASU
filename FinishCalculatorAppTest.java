@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,3 +50,19 @@ public class FinishCalculatorAppTest {
         // Мы можем только убедиться, что текстовое поле вывода содержит сообщение
         assertNotNull(app.labelOutput.getText());
     }
+    @Test
+    void testNumericInputOnly() {
+        // Подготовка
+        FinishCalculatorApp app = new FinishCalculatorApp();
+        JTextField areaInputField = app.areaInput;
+
+        // вводим текст в поле для ввода площади
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(
+                new KeyEvent(areaInputField, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'a')
+        );
+
+        // Проверка: убеждаемся, что в поле для ввода площади осталось пусто
+        assertTrue(areaInputField.getText().isEmpty());
+    }
+
+}
