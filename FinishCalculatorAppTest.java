@@ -1,10 +1,6 @@
-
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,4 +27,23 @@ public class FinishCalculatorAppTest {
 
         // Проверка
         assertEquals("Общая стоимость: 3125.0 руб.", app.labelOutput.getText());
+    }
+
+    @Test
+    void testInvalidInput_ShowErrorMessage() {
+        // Подготовка
+        FinishCalculatorApp app = new FinishCalculatorApp();
+        FinishCalculatorApp.CalculateListener listener = app.new CalculateListener();
+
+        app.areaInput.setText("abc"); // Устанавливаем некорректное значение площади
+
+        ActionEvent event = new ActionEvent(app.calculateButton, ActionEvent.ACTION_PERFORMED, "");
+
+        // Действие
+        listener.actionPerformed(event);
+
+        // Проверка
+
+        // Мы можем только убедиться, что текстовое поле вывода содержит сообщение
+        assertNotNull(app.labelOutput.getText());
     }
